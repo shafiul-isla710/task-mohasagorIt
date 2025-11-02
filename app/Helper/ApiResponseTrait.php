@@ -14,7 +14,7 @@ trait ApiResponseTrait
         ], $code);
     }
 
-    public function errorResponse($status = false, $message = 'Failed', $code = 400)
+    public function errorResponse($status = false, $message = ['Internal Server Error'], $code = 400)
     {
         return response()->json([
             'success' => $status,
