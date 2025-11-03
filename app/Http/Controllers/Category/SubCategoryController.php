@@ -1,31 +1,32 @@
 <?php
 
 namespace App\Http\Controllers\Category;
-use App\Models\Category;
+
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Termwind\Components\Raw;
 use App\Helper\ApiResponseTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Category\CategoryStoreRequest;
-use App\Http\Requests\Category\CategoryUpdateRequest;
+use App\Http\Requests\Category\SubCategoryStoreRequest;
+use App\Http\Requests\Category\SubCategoryUpdateRequest;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     use ApiResponseTrait;
-
-    /**
-    * Display Main Categories.
-    */
+ /**
+     * Display Main Categories.
+     */
     public function index(Request $request)
     {
         try{
-            $query = Category::query();
+            $query = SubCategory::query();
 
             if($request->filled('name')){
                 $query->where('name','like','%'.$request->input('name').'%');
             }
-            $categories = $query->get();
+            $subCategories = $query->with('category')->get();
 
-            return $this->successResponse(true, 'Categories Retrieved Successfully', $categories);
+            return $this->successResponse(true, 'Sub Categories Retrieved Successfully', $subCategories);
         }
         catch(\Exception $e){
             return $this->errorResponse(false, $e->getMessage(), 500);
@@ -33,10 +34,10 @@ class CategoryController extends Controller
         
     }
 
-    /**
-    * Store a newly created resource in storage.
-    */
-    public function store(CategoryStoreRequest $request)
+     /**
+     * Store a newly created sub category in storage.
+     */
+    public function store(SubCategoryStoreRequest $request)
     {
         try{
             $data = $request->validated();
@@ -46,9 +47,9 @@ class CategoryController extends Controller
                 $data['image'] = $imagePath;
             }
 
-            $category = Category::create($data);
+            $subCategory = SubCategory::create($data);
             
-            return $this->successResponse(true, 'Category Created Successfully', $category);
+            return $this->successResponse(true, 'Sub Category Created Successfully',$subCategory);
 
         }
         catch(\Exception $e){
@@ -56,12 +57,11 @@ class CategoryController extends Controller
         }
     }
 
+     /**
+     * Update the specified sub category in storage.
+     */
 
-    /**
-    * Update the specified resource in storage.
-    */
-
-    public function update(CategoryUpdateRequest $request, Category $category)
+    public function update(SubCategoryUpdateRequest $request, SubCategory $subCategory)
     {
         try{
             $data = $request->validated();
@@ -71,9 +71,9 @@ class CategoryController extends Controller
                 $data['image'] = $imagePath;
             }
 
-            $category->update($data);
+            $subCategory->update($data);
             
-            return $this->successResponse(true, 'Category Updated Successfully', $category);
+            return $this->successResponse(true, 'Sub Category Updated Successfully', $subCategory);
 
         }
         catch(\Exception $e){
@@ -86,10 +86,10 @@ class CategoryController extends Controller
     * Remove the specified resource from storage.
     */
 
-    public function destroy(Request $request, Category $category)
+    public function destroy(Request $request, SubCategory $subCategory)
     {
         try{
-            $category->delete();
+            $subCategory->delete();
             
             return $this->successResponse(true, 'Category Deleted Successfully');
 
@@ -98,4 +98,5 @@ class CategoryController extends Controller
             return $this->errorResponse(false, $e->getMessage(), 500);
         }
     }
+    
 }
