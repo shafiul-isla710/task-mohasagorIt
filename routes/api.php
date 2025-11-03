@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Category\SubCategoryController;
 use App\Http\Controllers\Category\SubSubCategoryController;
@@ -17,6 +18,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 //Admin Routes
 Route::group(['prefix'=>'admin','middleware'=>'auth:sanctum'], function(){
+
+    //Admin Routes
+    Route::post('/admin-create',[AdminController::class,'store']);
+    Route::put('/admin-update/{admin}',[AdminController::class,'update']);
+    Route::put('/resetPassword/{admin}',[AdminController::class,'resetPassword']);
+    Route::put('/toggleStatus/{admin}',[AdminController::class,'toggleStatus']);
+
     //category routes
     Route::group(['prefix'=>'category'], function(){
         Route::get('/index',[CategoryController::class,'index']);
