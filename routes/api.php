@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AdminController;
+use App\Http\Controllers\Attribute\VariantController;
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Attribute\AttributeController;
 use App\Http\Controllers\Category\SubCategoryController;
 use App\Http\Controllers\Category\SubSubCategoryController;
 
@@ -49,5 +51,16 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:sanctum'], function(){
         Route::post('/apply-discount/{subsubCategory}',[SubSubCategoryController::class,'applyDiscount']);
         Route::post('/toggle-status/{subsubCategory}',[SubSubCategoryController::class,'toggleStatus']);
     });
+
+    //AttributeRoutes
+    Route::post('/attribute/store',[AttributeController::class,'storeAttribute']);
+    Route::get('/attribute/index',[AttributeController::class,'index']);
+    Route::get('/attribute/toggle-status/{attribute}',[AttributeController::class,'toggleStatus']);
+    Route::delete('/attribute/delete/{attribute}',[AttributeController::class,'destroy']);
+    //Variant Routes
+    Route::post('/variant/store',[VariantController::class,'storeVariant']);
+    Route::get('/variant/index',[VariantController::class,'index']);
+    Route::get('/variant/toggle-status/{variant}',[VariantController::class,'toggleStatus']);
+    Route::delete('/variant/delete/{variant}',[VariantController::class,'destroy']);
 
 });

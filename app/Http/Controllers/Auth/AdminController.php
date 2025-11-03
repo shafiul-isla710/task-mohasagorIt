@@ -84,7 +84,7 @@ class AdminController extends Controller
 
 
     /**
-    * Store a newly admin in storage.
+    * Change admin status.
     */
     public function toggleStatus(Request $request, User $admin)
     {
