@@ -29,8 +29,7 @@ class CategoryController extends Controller
         }
         catch(\Exception $e){
             return $this->errorResponse(false, $e->getMessage(), 500);
-        }
-        
+        }  
     }
 
     /**
