@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Category;
 
 use App\Http\Requests\ApiFormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryStoreRequest extends ApiFormRequest
+class CategoryUpdateRequest extends ApiFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,8 +22,8 @@ class CategoryStoreRequest extends ApiFormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|max:255|unique:categories,name',
+         return [
+            'name' => 'required|string|max:255|unique:categories,name,'.$this->category->id,
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'status' => 'nullable|boolean|in:0,1',
             'meta_title' => 'nullable|string|max:255',

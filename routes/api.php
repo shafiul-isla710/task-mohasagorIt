@@ -15,5 +15,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 //Admin Routes
 Route::group(['prefix'=>'admin','middleware'=>'auth:sanctum'], function(){
-    Route::post('/category/store',[CategoryController::class,'store']);
+    //category routes
+    Route::group(['prefix'=>'category'], function(){
+        Route::post('/store',[CategoryController::class,'store']);
+        Route::get('/index',[CategoryController::class,'index']);
+        Route::put('/update/{category}',[CategoryController::class,'update']);
+        Route::delete('/delete/{category}',[CategoryController::class,'destroy']);
+    });
+
 });

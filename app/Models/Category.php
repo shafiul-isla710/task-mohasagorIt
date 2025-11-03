@@ -17,13 +17,9 @@ class Category extends Model
         'meta_content',
     ];
 
-    public function parent()
-    {
-        return $this->belongsTo(Category::class, 'parent_id');
-    }
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 
-    public function children()
-    {
-        return $this->hasMany(Category::class, 'parent_id');
-    }
 }
