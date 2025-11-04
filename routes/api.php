@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AdminController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Attribute\VariantController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Attribute\AttributeController;
 use App\Http\Controllers\Category\SubCategoryController;
+use App\Http\Controllers\Product\Admin\productController;
 use App\Http\Controllers\Category\SubSubCategoryController;
 
 Route::get('/user', function (Request $request) {
@@ -55,6 +57,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:sanctum'], function(){
     //AttributeRoutes
     Route::post('/attribute/store',[AttributeController::class,'storeAttribute']);
     Route::get('/attribute/index',[AttributeController::class,'index']);
+    Route::get('/attribute/show/{attribute}',[AttributeController::class,'show']);
     Route::get('/attribute/toggle-status/{attribute}',[AttributeController::class,'toggleStatus']);
     Route::delete('/attribute/delete/{attribute}',[AttributeController::class,'destroy']);
     //Variant Routes
@@ -62,5 +65,9 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:sanctum'], function(){
     Route::get('/variant/index',[VariantController::class,'index']);
     Route::get('/variant/toggle-status/{variant}',[VariantController::class,'toggleStatus']);
     Route::delete('/variant/delete/{variant}',[VariantController::class,'destroy']);
+
+    Route::group(['prefix'=>'product'], function(){
+        Route::post('/store',[productController::class,'store']);
+    });
 
 });

@@ -28,6 +28,18 @@ class AttributeController extends Controller
             return $this->errorResponse(false, $e->getMessage(), 500);
         }
     }
+    
+    // Attribute Show
+    public function show(Attribute $attribute)
+    {
+        try{
+            $data = $attribute->load('variants');
+            return $this->successResponse(true, 'Attribute Retrieved Successfully',$data);
+        }
+        catch(\Exception $e){
+            return $this->errorResponse(false, $e->getMessage(), 500);
+        }
+    }
     // Attribute Store
     public function storeAttribute(Request $request)
     {
