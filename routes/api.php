@@ -70,6 +70,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:sanctum'], function(){
         Route::post('/store',[productController::class,'store']);
         Route::put('/update/{product}',[productController::class,'update']);
         Route::get('/index',[productController::class,'index']);
+        Route::get('/change-status/{product}',[productController::class,'toggleStatus']);
     });
 
 });

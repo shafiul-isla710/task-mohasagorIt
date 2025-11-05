@@ -156,4 +156,22 @@ class productController extends Controller
             return $this->errorResponse(null,$e->getMessage(),500);
         }
     }
+
+    public function toggleStatus(Product $product)
+    {
+        try{
+
+            if($product->status == 'published'){
+                $product->status = 'unpublished';
+            }
+            else{
+                $product->status = 'published';
+            }
+            $product->save();
+            return $this->successResponse(true,'Product Status Updated Successfully');
+        }
+        catch(\Exception $e){
+            return $this->errorResponse(null,$e->getMessage(),500);
+        }
+    }
 }
