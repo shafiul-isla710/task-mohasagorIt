@@ -12,4 +12,13 @@ class ProductImage extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public $appends = ['image_url'];
+    public function getImageUrlAttribute(): ?string
+    {
+        if ($this->image) {
+            return asset('storage/' . $this->image);
+        }
+        return null;
+    }
 }

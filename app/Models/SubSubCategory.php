@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SubSubCategory extends Model
 {
@@ -18,6 +19,11 @@ class SubSubCategory extends Model
         'meta_content',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'image',
+    ];
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -25,5 +31,20 @@ class SubSubCategory extends Model
     public function subCategory()
     {
         return $this->belongsTo(SubCategory::class);
+    }
+
+     // image url generate
+    protected $appends = ['image_url'];
+    public function getImageUrlAttribute(): ?string
+    {
+        if ($this->image) {
+            return asset('storage/' . $this->image);
+        }
+        return null;
+    }
+
+    public function products():HasMany
+    {
+        return $this->hasMany(Product::class);
     }
 }

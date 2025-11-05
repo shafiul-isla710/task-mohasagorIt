@@ -68,6 +68,8 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:sanctum'], function(){
 
     Route::group(['prefix'=>'product'], function(){
         Route::post('/store',[productController::class,'store']);
+        Route::put('/update/{product}',[productController::class,'update']);
+        Route::get('/index',[productController::class,'index']);
     });
 
 });

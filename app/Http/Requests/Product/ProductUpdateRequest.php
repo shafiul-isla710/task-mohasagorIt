@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Product;
 
 use App\Http\Requests\ApiFormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class ProductStoreRequest extends ApiFormRequest
+class ProductUpdateRequest extends ApiFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -40,8 +41,8 @@ class ProductStoreRequest extends ApiFormRequest
             'weight' => 'nullable|array',
             'weight.*' => 'string|max:50',
 
-            'image' => 'nullable|array',
-            'image.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'image' => 'nullable|array|max:6',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

@@ -13,4 +13,22 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function subCategory()
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
+    public function subSubCategory()
+    {
+        return $this->belongsTo(SubSubCategory::class);
+    }
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }
